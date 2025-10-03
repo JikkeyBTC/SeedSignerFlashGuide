@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>JikKey Image Flash Guide</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <div class="brand">
+          <img src="image/logo.png" alt="Jikkey 로고" class="logo" />
+          <div>
+            <h1>SeedSigner OS 설치 가이드</h1>
+            <p class="tagline">SeedSigner Image Flash Guide</p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+      <main class="content" id="content">
+        <section id="intro" class="section panel">
+          <h2>시작하기</h2>
+          <p>
+            이 가이드는 SeedSigner OS 이미지를 준비하고 Raspberry Pi Imager를
+            사용해 microSD 카드에 플래시한 뒤, 부팅 및 기본 동작을 검증하는
+            방법을 안내합니다.
+          </p>
+          <div>
+            <div>
+              <h3>준비물</h3>
+              <ul>
+                <li>시드사이너</li>
+                <li>microSD 카드</li>
+                <li>USB 카드 리더기</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section id="intro" class="section panel">
+          <h2>microSD 카드 준비</h2>
+          <p>패키지에 동봉된 USB 카드리더기에 microSD 카드를 장착합니다.</p>
+          <ul>
+            <li>카드가 올바른 방향으로 삽입되었는지 확인합니다.</li>
+            <div class="grid cols-4">
+              <figure class="img-tile">
+                <img
+                  src="image/SDCard_1.png"
+                  alt="카드 삽입 방향 예시 2"
+                />
+              </figure>
+              <figure class="img-tile">
+                <img
+                src="image/SDCard_2.png"
+                  alt="카드 삽입 방향 예시 3"
+                />
+              </figure>
+              <figure class="img-tile">
+                <img
+                src="image/SDCard_3.png"
+                  alt="카드 삽입 방향 예시 4"
+                />
+              </figure>
+            </div>
+        </section>
+
+        <section id="download" class="section panel">
+          <h2>SeedSigner 이미지 준비</h2>
+          <p>PC에서 SeedSigner OS 이미지를 다운로드합니다.</p>
+          <ol>
+            <li>
+              SeedSigner OS 최신버전 다운로드 링크 👉
+              <a
+                href="https://github.com/SeedSigner/#downloading-the-software"
+                target="_blank"
+                rel="noopener"
+                >GitHub Releases</a
+              >
+              <figure class="img-tile">
+                <img
+                  src="image/os_image.png"
+                  alt="카드 삽입 방향 예시 2"
+                />
+              </figure>
+            </li>
+            <li>Raspberry Pi Zero 1.3 버전에 맞게 파일을 다운로드합니다. <code>.pi0.img</code></li>
+            <li>[선택사항] 릴리스 노트의 체크섬으로 무결성을 검증합니다.</li>
+          </ol>
+        </section>
+
+        <section id="flash-windows" class="section panel">
+          <h2>Raspberry Pi Imager 설치</h2>
+          <p>Raspberry Pi Imager 를 설치합니다.</p>
+          <ol>
+            <li>
+              Raspberry Pi Imager 다운로드 링크 👉
+              <a
+              href="https://www.raspberrypi.com/software/"
+              target="_blank"
+              rel="noopener"
+              >Raspberry Pi Imager</a
+              >
+              <figure class="img-tile">
+                <img
+                src="image/0.png"
+                alt="Imager 다운로드"
+                />
+              </figure>
+              <p>사용하고 계신 운영체제에 맞게 다운로드하여 설치합니다. </p>
+              <p>(Windows, macOS, Ubuntu 지원)</p>
+            </li>
+            <li>설치를 진행합니다.</li>
+
+            <figure class="img-tile">
+              <img
+                src="image/1.png"
+              />
+            </figure>
+          </ol>
+        </section>
+
+        <section id="flash-windows" class="section panel">
+          <h2>Raspberry Pi Imager 실행 및 Flash 준비</h2>
+          <p>Raspberry Pi Imager를 실행합니다.</p>
+          <figure class="img-tile">
+            <img
+              src="image/2.png"
+            />
+          </figure>
+
+          <p>장치 선택을 눌러, 아래로 스크롤하여 Raspberry Pi Zero 를 선택합니다.</p>
+          <figure class="img-tile">
+            <img
+              src="image/3.png"
+            />
+          </figure>
+
+          <p>운영체제 선택을 눌러, 아래로 스크롤하여 사용자 정의 사용 항목을 선택합니다.</p>
+          <figure class="img-tile">
+            <img
+              src="image/4-1.png"
+            />
+          </figure>
+
+          <p>다운로드하였던 SeedSigner OS의 <code>.pi0.img</code>를 선택합니다.</p>
+          <figure class="img-tile">
+            <img
+              src="image/4.png"
+            />
+          </figure>
+
+          <p>저장소 선택을 눌러, SD Card 영역(8GB 가량)을 선택합니다. </p>
+          <figure class="img-tile">
+            <img
+              src="image/5.png"
+            />
+          </figure>
+
+          <p>SeedSigner 설치 준비가 완료되어 "다음" 버튼이 활성화 됩니다.</p>
+          <figure class="img-tile">
+            <img
+              src="image/6.png"
+            />
+          </figure>
+
+          <p>OS 커스터마이징 설정을 적용하시겠습니까? 팝업이 나타나면 "아니요" 를 클릭합니다.</p>
+          <figure class="img-tile">
+            <img
+              src="image/7.png"
+            />
+          </figure>
+
+          <p>데이터 지워짐 -> "예"를 클릭합니다.</p>
+          <figure class="img-tile">
+            <img
+              src="image/8.png"
+            />
+          </figure>
+
+          <p>SeedSigner OS가 SDCard에 설치가 완료되었습니다.</p>
+          <figure class="img-tile">
+            <img
+              src="image/9.png"
+            />
+          </figure>
+        </section>
+
+        <section id="flash-windows" class="section panel">
+          <h2>SeedSigner 동작확인</h2>
+          <p>SeedSigner에 SDCard를 삽입한 뒤, 전원을 연결하여 부팅을 확인합니다.</p>
+          <figure class="img-tile">
+            <img
+              src="image/10.jpg"
+            />
+          </figure>
+          <figure class="video-tile">
+            <video src="video/1.mp4" autoplay muted loop playsinline controls></video>
+          </figure>
+        </section>
+    <footer class="site-footer">
+      <small>© 2025 FlashGuide</small>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>
