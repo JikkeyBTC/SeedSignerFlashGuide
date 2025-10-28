@@ -208,6 +208,21 @@ border-left:none;border-right:none;border-radius:0;box-shadow:none;
 .grid.cols-4{grid-template-columns:repeat(2,1fr)}
 @media (min-width:720px){.grid.cols-4{grid-template-columns:repeat(4,1fr)}}
 
+/* SD Card images uniform sizing */
+.grid.cols-4 .img-tile {
+  aspect-ratio: 4 / 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.grid.cols-4 .img-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
 /* Code blocks */
 code,pre{
 background:#f6f8fa;border:1px solid var(--border);border-radius:10px
