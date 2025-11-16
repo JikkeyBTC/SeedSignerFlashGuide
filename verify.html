@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SeedSigner 이미지 무결성 검증 가이드</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+
+  <body>
+    <header class="site-header hero">
+      <div class="hero-inner">
+        <img src="image/logo.png" alt="Jikkey 로고" class="logo" />
+        <h1>SeedSigner 이미지 무결성 검증</h1>
+        <p class="tagline">체크섬으로 다운로드한 이미지를 검증하세요</p>
+      </div>
+    </header>
+
+
+      <main class="content container" id="content">
+        <section id="intro" class="section panel">
+          <h2>무결성 검증이란?</h2>
+          <p>
+            다운로드한 SeedSigner OS 이미지 파일이 변조되지 않았는지 확인하는 과정입니다.
+            체크섬(Checksum)을 비교하여 파일이 변조되지 않았음을 보장합니다.
+          </p>
+          <p>
+             
+            본 가이드는 윈도우 기반으로 설명을 진행합니다. <br>
+            MAC OS 및 리눅스는 아래의 링크에서 무결성 검증방법을 확인하실 수 있습니다<br>
+            <a href="https://github.com/seedsigner#verifying-your-download">👉 MAC & Linux 검증가이드</a>
+          </p>
+          <br>
+          <div>
+            <h3>왜 검증이 필요한가요?</h3>
+            <ul>
+              <li>다운로드 중 파일 손상 여부를 확인할 수 있습니다.</li>
+              <li>파일의 악의적인 변조가 있는지 확인할 수 있습니다.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="file-download" class="section panel">
+          <h2>1. 파일 다운로드</h2>
+          <p>SeedSigner GitHub 페이지에서 검증에 필요한 자료들을 다운로드합니다.</p>
+          <ol>
+            <li>
+              SeedSigner GitHub 페이지 👉
+              <a
+                href="https://github.com/SeedSigner/seedsigner?tab=readme-ov-file#downloading-the-software"
+                target="_blank"
+                rel="noopener"
+                >SeedSigner GitHub</a
+              >
+            </li>
+            <figure class="img-tile">
+              <img
+              src="image/verify/1_download.png"
+              alt="무결성 확인 파일 다운로드"
+              />
+            </figure>
+            <li>다운받은 파일을 동일한 경로에 저장합니다</li>
+            <figure class="img-tile">
+              <img
+              src="image/verify/2_path.png"
+              alt="무결성 확인 파일 다운로드"
+              />
+            </figure>
+          </ol>
+        </section>
+
+        <section id="gpg-intallation" class="section panel">
+          <h2>2. GPG 프로그램 설치</h2>
+          <p>GPG 프로그램은 GNU Privacy Guard의 약자로, PGP(Pretty Good Privacy)를 기반으로 만들어진 무료 오픈소스 보안 도구입니다. 이 프로그램을 사용하여 파일의 암호화/복호화, 디지털 서명을 통한 메시지 인증 및 무결성 보장을 확인할 수 있습니다</p>
+
+          <h3>GPG 설치페이지 👉 <a
+            href="https://gnupg.org/download/index.html"
+            target="_blank"
+            rel="noopener">GnuPG</a></h3>
+            <ol>
+              <li>진입후 아래로 스크롤 하여 GNUPG BINARY RELEASE를 찾아, Gpg4win을 클릭합니다.</li>
+              <figure class="img-tile">
+                <img
+                src="image/verify/3_gpg1.png"
+                alt="GPG 설치 페이지"
+                />
+                </figure>
+                <li>다운로드 버튼을 누릅니다.</li>
+              <figure class="img-tile">
+                <img
+                src="image/verify/3_gpg2.png"
+                alt="GPG 설치 페이지"
+                />
+                </figure>
+                <li>다운로드를 진행합니다.</li>
+              <figure class="img-tile">
+                <img
+                src="image/verify/3_gpg3.png"
+                alt="GPG 설치 페이지"
+                />
+              </figure>
+            </ol>
+        </section>
+
+        <section id="verify-result" class="section panel">
+          <h2>3. 검증 진행</h2>
+          <p>계산된 체크섬과 릴리스 노트의 체크섬을 비교합니다.</p>
+          <ul>
+            <li>powershell 을 실행합니다.</li>
+            <figure class="img-tile">
+              <img
+              src="image/verify/4_powershell.png"
+              alt="powershell 실행"
+              />
+            </figure>
+            <li>cd 명령어를 통해 Seedsigner OS를 다운로드 받아둔 폴더로 진입합니다.</li>
+            <figure class="img-tile">
+              <img
+              src="image/verify/4_verify_1.png"
+              alt="GPG 설치 페이지"
+              />
+            </figure>
+            <li>GPG fetch key 명령어를 통해 Seedsigner 프로젝트의 공개 키를 가져옵니다.</li>
+            <figure class="img-tile">
+              <img
+              src="image/verify/4_verify_2.png"
+              alt="GPG 설치 페이지"
+              />
+            </figure>
+            <div class="code-block">
+              <button class="copy-button" onclick="copyCode(this)">복사</button>
+              <code>gpg --fetch-keys https://keybase.io/seedsigner/pgp_keys.asc</code>
+            </div>
+            <li>verify 명령을 통해 서명을 확인합니다.</li>
+            <div class="code-block">
+              <button class="copy-button" onclick="copyCode(this)">복사</button>
+              <code>gpg --verify seedsigner.0.8.6.sha256.txt.sig</code>
+            </div>
+
+            <figure class="img-tile">
+              <img
+              src="image/verify/4_verify_3.png"
+              alt="GPG 설치 페이지"
+              />
+            </figure>
+
+            <li>Good signature 메시지가 표시여부와, keybase와 서명값이 동일한지 확인합니다.</li>
+            <figure class="img-tile">
+              <img
+              src="image/verify/4_verify_4.png"
+              alt="결과확인"
+              />
+            </figure>
+
+            <li>CertUtil 명령어를 통해 파일의 해시값이 동일한지 확인합니다.</li>
+            <div class="code-block">
+              <button class="copy-button" onclick="copyCode(this)">복사</button>
+              <code>CertUtil -hashfile  .\seedsigner_os.0.8.6.pi0.img SHA256</code>
+            </div>
+            <figure class="img-tile">
+              <img
+              src="image/verify/4_verify_5.png"
+              alt="Cert 결과확인"
+              />
+            </figure>
+          </ul>
+          <br>
+
+          <h2> 검증이 완료되었습니다. 이미지 설치를 진행하셔도 됩니다.</h2>
+          <p><a href="index.html">← 설치 가이드로 돌아가기</a></p>
+        </section>
+
+    <footer class="site-footer">
+      <small>© 2025 JikKey SeedSigner Flash Guide</small>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>

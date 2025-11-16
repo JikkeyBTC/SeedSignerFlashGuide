@@ -150,6 +150,64 @@ code {
   color: var(--accent);
 }
 
+/* Code Block with Copy Button */
+.code-block {
+  position: relative;
+  margin: var(--spacing-md) 0;
+  background: #f6f8fa;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.code-block code {
+  display: block;
+  padding: var(--spacing-md);
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  overflow-x: auto;
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+}
+
+.code-block .copy-button {
+  position: absolute;
+  top: var(--spacing-xs);
+  right: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  opacity: 0.7;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.code-block .copy-button:hover {
+  opacity: 1;
+  background: var(--brand);
+  color: white;
+  border-color: var(--brand);
+  transform: translateY(-1px);
+}
+
+.code-block .copy-button:active {
+  transform: translateY(0);
+}
+
+.code-block .copy-button.copied {
+  background: var(--brand);
+  color: white;
+  border-color: var(--brand);
+}
+
 strong, b {
   font-weight: 600;
   color: var(--text);
@@ -628,6 +686,23 @@ pre code {
   pre {
     background: #161b22;
     border-color: var(--border);
+  }
+
+  .code-block {
+    background: #161b22;
+    border-color: var(--border);
+  }
+
+  .code-block .copy-button {
+    background: #0d1117;
+    border-color: var(--border);
+    color: var(--text-secondary);
+  }
+
+  .code-block .copy-button:hover {
+    background: var(--brand);
+    color: white;
+    border-color: var(--brand);
   }
 
   figure.img-tile,

@@ -29,3 +29,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
   sections.forEach((sec) => observer.observe(sec));
 });
+
+// Copy code functionality
+function copyCode(button) {
+  const codeBlock = button.parentElement;
+  const code = codeBlock.querySelector('code');
+  const text = code.textContent;
+
+  navigator.clipboard.writeText(text).then(() => {
+    const originalText = button.textContent;
+    button.textContent = '복사완료!';
+    button.classList.add('copied');
+
+    setTimeout(() => {
+      button.textContent = originalText;
+      button.classList.remove('copied');
+    }, 2000);
+  }).catch(err => {
+    console.error('복사 실패:', err);
+    button.textContent = '복사 실패';
+    setTimeout(() => {
+      button.textContent = '복사';
+    }, 2000);
+  });
+}
