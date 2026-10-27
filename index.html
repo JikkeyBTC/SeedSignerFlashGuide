@@ -3,213 +3,263 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>JikKey Image Flash Guide</title>
+    <title>SeedSigner OS 설치 가이드 · JikKey</title>
+    <meta name="description" content="JikKey SeedSigner에 SeedSigner OS를 microSD 카드로 설치하는 방법. Raspberry Pi Imager로 약 10분이면 끝납니다." />
+    <meta property="og:title" content="SeedSigner OS 설치 가이드 · JikKey" />
+    <meta property="og:description" content="microSD 카드 준비부터 부팅 확인까지, 다섯 단계로 끝내는 SeedSigner OS 설치." />
+    <meta property="og:image" content="image/install_2.0.0/revision_2.png" />
+    <meta name="theme-color" content="#f5f5f7" />
+    <link rel="icon" href="image/brand-mark.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" />
     <link rel="stylesheet" href="assets/css/styles.css" />
   </head>
-  
+
   <body>
-    <header class="site-header hero">
-      <div class="hero-inner">
-        <img src="image/logo.png" alt="Jikkey 로고" class="logo" />
-        <h1>SeedSigner OS 설치 가이드</h1>
-        <p class="tagline">간결하고 안전하게 SeedSigner를 시작하세요</p>
+    <a class="skip-link" href="#content">본문 바로가기</a>
+
+    <header class="global-header">
+      <div class="nav-inner">
+        <a class="wordmark" href="index.html" aria-label="JikKey 설치 가이드 홈"><img src="image/brand-mark.png" alt="" /><span>JikKey</span></a>
+        <nav class="global-nav" aria-label="가이드">
+          <a href="index.html" aria-current="page">설치 가이드</a>
+          <a href="verify.html">무결성 검증</a>
+          <a class="hide-sm" href="https://jikkey.com" target="_blank" rel="noopener">jikkey.com
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+          </a>
+        </nav>
       </div>
     </header>
-    
 
-      <main class="content container" id="content">
-        <section id="intro" class="section panel">
-          <h2>시작하기</h2>
-          <p>
-            이 가이드는 SeedSigner OS 이미지를 준비하고 Raspberry Pi Imager를
-            사용해 microSD 카드에 플래시한 뒤, 부팅 및 기본 동작을 검증하는
-            방법을 안내합니다.
-          </p>
-          <br>
-          <div>
-            <div>
-              <h3>준비물</h3>
-              <ul>
-                <li>시드사이너</li>
-                <li>microSD 카드</li>
-                <li>USB 카드 리더기</li>
-              </ul>
-            </div>
-          </div>
-        </section>
+    <section class="hero">
+      <p class="eyebrow accent">SeedSigner OS 설치</p>
+      <h1>microSD 하나로<br />시드사이너를 깨웁니다.</h1>
+      <p class="tagline">다섯 단계, 약 10분. <span>PC만 있으면 됩니다.</span></p>
+      <div class="hero-meta">
+        <span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          약 10분
+        </span>
+        <span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>
+          Windows · macOS · Ubuntu
+        </span>
+        <span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8Z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>
+          Raspberry Pi Imager 2.0
+        </span>
+      </div>
+      <div class="hero-actions">
+        <a class="action-button" href="#step-1">설치 시작하기</a>
+        <a class="action-button outlined" href="verify.html">이미지 무결성 검증</a>
+      </div>
+    </section>
 
-        <section id="intro" class="section panel">
-          <h2>1. microSD 카드 준비</h2>
-          <p>패키지에 동봉된 USB 카드리더기에 microSD 카드를 <b>끝까지</b> 장착합니다.</p>
-          <br>
-          <ul>
-            <li>카드가 올바른 방향으로 삽입되었는지 확인합니다.</li>
-            <li>사진은 삽입 방향을 알기위해 SD Card를 조금만 밀어넣은 예시입니다.</li>
-            <div class="grid cols-4">
-              <figure class="img-tile">
-                <img
-                  src="image/SDCard_1.png"
-                  alt="카드 삽입 방향 예시 1"
-                />
-              </figure>
-              <figure class="img-tile">
-                <img
-                src="image/SDCard_2.png"
-                  alt="카드 삽입 방향 예시 2"
-                />
-              </figure>
-              <figure class="img-tile">
-                <img
-                src="image/SDCard_3.png"
-                  alt="카드 삽입 방향 예시 3"
-                />
-              </figure>
-              <figure class="img-tile">
-                <img
-                src="image/SDCard_4.png"
-                  alt="카드 삽입 방향 예시 4"
-                />
-              </figure>
-            </div>
-            <br>
-            <li>PC에 USB를 연결합니다.</li>
-            </ul>
-        </section>
+    <main id="content">
+      <section class="kit content-width" aria-labelledby="kit-title">
+        <p class="eyebrow">시작 전에</p>
+        <h2 id="kit-title">준비물은 세 가지입니다.</h2>
+        <ul class="kit-grid">
+          <li><span class="kit-index">01</span><b>시드사이너</b><small>JikKey SeedSigner 본체 (Raspberry Pi Zero 1.3)</small></li>
+          <li><span class="kit-index">02</span><b>microSD 카드</b><small>패키지에 동봉된 카드. 기존 데이터는 모두 지워집니다.</small></li>
+          <li><span class="kit-index">03</span><b>USB 카드 리더기</b><small>동봉된 리더기를 PC의 USB 포트에 연결합니다.</small></li>
+        </ul>
+      </section>
 
-        <section id="download" class="section panel">
-          <h2>2. SeedSigner 이미지 준비</h2>
-          <p>PC에서 SeedSigner OS 이미지를 다운로드합니다.</p>
+      <div class="guide content-width">
+        <nav class="step-rail" aria-label="설치 단계">
+          <p>설치 단계</p>
           <ol>
-            <li>
-              SeedSigner OS 최신버전 다운로드 링크 👉
-              <a
-                href="https://github.com/SeedSigner/#downloading-the-software"
-                target="_blank"
-                rel="noopener"
-                >GitHub Releases</a
-              >
-              <figure class="img-tile">
-                <img
-                  src="image/260802_os_image.png"
-                  alt="카드 삽입 방향 예시 2"
-                />
-              </figure>
-            </li>
-            <li>Raspberry Pi Zero 1.3 버전에 맞게 파일을 다운로드합니다. <code>.pi0.img</code></li>
-            <li>[선택사항] 릴리스 노트의 체크섬으로 무결성을 검증합니다.<a href="verify.html">👉 검증 가이드 보기</a></li>
+            <li><a href="#step-1" data-target="step-1"><span>01</span>microSD 카드 준비</a></li>
+            <li><a href="#step-2" data-target="step-2"><span>02</span>OS 이미지 다운로드</a></li>
+            <li><a href="#step-3" data-target="step-3"><span>03</span>Imager 설치</a></li>
+            <li><a href="#step-4" data-target="step-4"><span>04</span>microSD에 쓰기</a></li>
+            <li><a href="#step-5" data-target="step-5"><span>05</span>부팅 확인</a></li>
+            <li><a href="#caution" data-target="caution"><span>!</span>주의사항</a></li>
           </ol>
-        </section>
+        </nav>
 
-        <section id="flash-windows" class="section panel">
-          <h2>3. Raspberry Pi Imager 설치</h2>
-          <p>Raspberry Pi Imager 를 설치합니다.</p>
-          <ol>
-            <li>
-              Raspberry Pi Imager 다운로드 링크 👉
-              <a
-              href="https://www.raspberrypi.com/software/"
-              target="_blank"
-              rel="noopener"
-              >Raspberry Pi Imager</a
-              >
-              <figure class="img-tile">
-                <img
-                src="image/install_2.0.0/revision_0.png"
-                alt="Imager 다운로드"
-                />
-              </figure>
-              <p>사용하고 계신 운영체제에 맞게 다운로드하여 설치합니다. </p>
-              <p>(Windows, macOS, Ubuntu 지원)</p>
-            </li>
-            <li>설치를 진행합니다.</li>
+        <div class="steps">
+          <!-- STEP 1 -->
+          <section class="step" id="step-1" aria-labelledby="step-1-title">
+            <div class="step-head">
+              <p class="eyebrow">STEP 01</p>
+              <h2 id="step-1-title">microSD 카드 준비</h2>
+              <p class="lead">동봉된 USB 카드 리더기에 microSD 카드를 <b>끝까지</b> 밀어 넣습니다.</p>
+            </div>
+            <ol class="substeps">
+              <li>
+                <h3>삽입 방향을 확인합니다.</h3>
+                <p class="desc">금색 단자가 리더기 안쪽을 향하도록 넣습니다. 아래 사진은 방향을 보여주기 위해 카드를 일부만 넣은 모습이며, 실제로는 끝까지 넣어야 합니다.</p>
+                <div class="gallery">
+                  <figure><img src="image/SDCard_1.png" alt="블랙 리더기에 microSD 카드를 넣는 방향" loading="lazy" /></figure>
+                  <figure><img src="image/SDCard_2.png" alt="실버 리더기에 microSD 카드를 넣는 방향" loading="lazy" /></figure>
+                  <figure><img src="image/SDCard_3.png" alt="스트랩형 리더기에 microSD 카드를 넣는 방향" loading="lazy" /></figure>
+                  <figure><img src="image/SDCard_4.png" alt="화이트 리더기에 microSD 카드를 넣는 방향" loading="lazy" /></figure>
+                </div>
+                <p class="desc" style="margin-top:12px;font-size:13px">리더기 모양은 패키지에 따라 다를 수 있습니다.</p>
+              </li>
+              <li>
+                <h3>리더기를 PC에 연결합니다.</h3>
+                <p class="desc">PC의 USB 포트에 꽂으면 이동식 디스크로 인식됩니다. 포맷을 묻는 창이 뜨면 닫아도 됩니다.</p>
+              </li>
+            </ol>
+          </section>
 
-            <figure class="img-tile">
-              <img
-                src="image/1.png"
-              />
-            </figure>
-          </ol>
-        </section>
+          <!-- STEP 2 -->
+          <section class="step" id="step-2" aria-labelledby="step-2-title">
+            <div class="step-head">
+              <p class="eyebrow">STEP 02</p>
+              <h2 id="step-2-title">SeedSigner OS 이미지 다운로드</h2>
+              <p class="lead">PC에서 SeedSigner 공식 GitHub의 최신 OS 이미지를 받습니다.</p>
+            </div>
+            <ol class="substeps">
+              <li>
+                <h3>공식 다운로드 표를 엽니다.</h3>
+                <p class="desc"><a class="inline-link" href="https://github.com/SeedSigner/seedsigner#downloading-the-software" target="_blank" rel="noopener">SeedSigner GitHub · Downloading the Software
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a></p>
+                <figure class="shot"><img src="image/260802_os_image.png" alt="SeedSigner GitHub의 보드별 다운로드 표에서 Raspberry Pi Zero 1.3 행" loading="lazy" /></figure>
+              </li>
+              <li>
+                <h3><b>Raspberry Pi Zero 1.3</b> 행의 파일을 받습니다.</h3>
+                <p class="desc">표 첫 줄, 파일 이름이 <code class="file">.pi0.img</code>로 끝나는 파일입니다. 다른 보드용 파일을 받으면 부팅되지 않습니다.</p>
+                <div class="copy-row">
+                  <code data-version-text="seedsigner_os.{v}.pi0.img">seedsigner_os.0.8.7.pi0.img</code>
+                  <button type="button" data-copy>복사</button>
+                </div>
+              </li>
+              <li>
+                <h3>원하면 무결성을 검증합니다. <span class="eyebrow" style="font-size:13px">선택</span></h3>
+                <p class="desc">받은 이미지가 변조되지 않았는지 서명과 해시로 확인할 수 있습니다. 비트코인 지갑이니만큼 권장합니다.</p>
+                <a class="next-card" href="verify.html">
+                  <span><b>무결성 검증 가이드</b><small>GPG 서명과 SHA256 해시 비교 · Windows 기준</small></span>
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </a>
+              </li>
+            </ol>
+          </section>
 
-        <section id="flash-windows" class="section panel">
-          <h2>4. Raspberry Pi Imager 실행 및 Flash 준비</h2>
-          <p>Raspberry Pi Imager를 실행합니다.</p>
-          <p>Device step에서, 아래로 스크롤하여 Raspberry Pi Zero 를 선택합니다.</p>
-          <figure class="img-tile">
-            <img
-              src="image/install_2.0.0/revision_2.png"
-            />
-          </figure>
+          <!-- STEP 3 -->
+          <section class="step" id="step-3" aria-labelledby="step-3-title">
+            <div class="step-head">
+              <p class="eyebrow">STEP 03</p>
+              <h2 id="step-3-title">Raspberry Pi Imager 설치</h2>
+              <p class="lead">microSD 카드에 OS 이미지를 써 주는 라즈베리 파이 공식 프로그램입니다.</p>
+            </div>
+            <ol class="substeps">
+              <li>
+                <h3>운영체제에 맞는 설치 파일을 받습니다.</h3>
+                <p class="desc"><a class="inline-link" href="https://www.raspberrypi.com/software/" target="_blank" rel="noopener">raspberrypi.com/software
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a> 에서 Windows, macOS, Ubuntu 중 사용하는 PC에 맞는 버튼을 누릅니다.</p>
+                <figure class="shot"><img src="image/install_2.0.0/revision_0.png" alt="Raspberry Pi 소프트웨어 페이지의 Download for Windows 버튼" loading="lazy" /></figure>
+              </li>
+              <li>
+                <h3>설치를 진행합니다.</h3>
+                <p class="desc">설치 언어를 고르고 안내에 따라 <span class="ui">OK</span> <span class="ui">다음</span>을 누르면 됩니다.</p>
+                <figure class="shot narrow"><img src="image/1.png" alt="설치 언어 선택 창" loading="lazy" /></figure>
+              </li>
+            </ol>
+          </section>
 
-          <p>OS step에서, 아래로 스크롤하여 사용자 정의 사용 항목을 선택합니다.</p>
-          <figure class="img-tile">
-            <img
-              src="image/install_2.0.0/revision_3.png"
-            />
-          </figure>
+          <!-- STEP 4 -->
+          <section class="step" id="step-4" aria-labelledby="step-4-title">
+            <div class="step-head">
+              <p class="eyebrow">STEP 04</p>
+              <h2 id="step-4-title">microSD 카드에 쓰기</h2>
+              <p class="lead">Raspberry Pi Imager를 실행하고 <b>Device → OS → 저장소</b> 순서로 고른 뒤 씁니다.</p>
+            </div>
+            <ol class="substeps">
+              <li>
+                <h3>Device: <b>Raspberry Pi Zero</b>를 고릅니다.</h3>
+                <p class="desc">목록을 아래로 스크롤해 <b>Raspberry Pi Zero</b>를 선택하고 <span class="ui">다음</span>을 누릅니다.</p>
+                <figure class="shot"><img src="image/install_2.0.0/revision_2.png" alt="Imager Device 단계에서 Raspberry Pi Zero 선택" loading="lazy" /></figure>
+              </li>
+              <li>
+                <h3>OS: <b>사용자 정의 사용</b>을 고릅니다.</h3>
+                <p class="desc">목록 맨 아래의 <b>사용자 정의 사용</b>(Use custom)을 누릅니다.</p>
+                <figure class="shot"><img src="image/install_2.0.0/revision_3.png" alt="Imager OS 단계에서 사용자 정의 사용 선택" loading="lazy" /></figure>
+              </li>
+              <li>
+                <h3>받아 둔 이미지 파일을 엽니다.</h3>
+                <p class="desc">2단계에서 받은 <code class="file" data-version-text="seedsigner_os.{v}.pi0.img">seedsigner_os.0.8.7.pi0.img</code> 파일을 선택하고 <span class="ui">열기</span>를 누릅니다.</p>
+                <figure class="shot"><img src="image/4.png" alt="파일 선택 창에서 pi0.img 파일 선택" loading="lazy" /></figure>
+              </li>
+              <li>
+                <h3>저장소: microSD 카드를 고릅니다.</h3>
+                <p class="desc">용량이 microSD 카드와 같은 <b>Mass Storage Device USB Device</b>를 선택하고 <span class="ui">다음</span>을 누릅니다.</p>
+                <figure class="shot"><img src="image/install_2.0.0/revision_4.png" alt="Imager 저장소 단계에서 USB 저장 장치 선택" loading="lazy" /></figure>
+                <div class="note warn">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></svg>
+                  <span>PC 하드디스크(수백 GB~TB)를 고르면 그 디스크가 지워집니다. <b>용량을 꼭 확인하세요.</b></span>
+                </div>
+              </li>
+              <li>
+                <h3>요약을 확인하고 <span class="ui">WRITE</span>를 누릅니다.</h3>
+                <p class="desc">Device가 Raspberry Pi Zero, Operating system이 <code class="file">.pi0.img</code> 파일인지 확인합니다.</p>
+                <figure class="shot"><img src="image/install_2.0.0/revision_5.png" alt="Write image 요약 화면과 WRITE 버튼" loading="lazy" /></figure>
+              </li>
+              <li>
+                <h3>삭제 확인 창에서 승인합니다.</h3>
+                <p class="desc">카드의 기존 데이터가 지워진다는 안내가 뜹니다. <span class="ui">I UNDERSTAND, ERASE AND WRITE</span>(예, 이해했습니다)를 누릅니다.</p>
+                <figure class="shot"><img src="image/install_2.0.0/revision_6.png" alt="데이터 삭제 확인 대화상자" loading="lazy" /></figure>
+              </li>
+              <li>
+                <h3><b>Write complete!</b> 가 보이면 끝입니다.</h3>
+                <p class="desc">카드는 자동으로 꺼내기 처리됩니다. 리더기를 PC에서 뽑고 microSD 카드를 빼냅니다.</p>
+                <figure class="shot"><img src="image/install_2.0.0/revision_7.png" alt="Write complete 화면" loading="lazy" /></figure>
+              </li>
+            </ol>
+          </section>
 
-          <p>다운로드하였던 SeedSigner OS의 <code>.pi0.img</code>를 선택합니다.</p>
-          <figure class="img-tile">
-            <img
-              src="image/4.png"
-            />
-          </figure>
+          <!-- STEP 5 -->
+          <section class="step" id="step-5" aria-labelledby="step-5-title">
+            <div class="step-head">
+              <p class="eyebrow">STEP 05</p>
+              <h2 id="step-5-title">부팅 확인</h2>
+              <p class="lead">시드사이너 측면 슬롯에 microSD 카드를 넣고 전원을 연결합니다. SeedSigner 로고에 이어 메인 화면이 뜨면 설치가 끝난 것입니다.</p>
+            </div>
+            <div class="media-pair">
+              <figure><img src="image/boot-check.jpg" alt="시드사이너 측면 슬롯에 microSD 카드를 넣은 모습" loading="lazy" /></figure>
+              <figure><video src="video/1.mp4" autoplay muted loop playsinline controls preload="metadata" aria-label="시드사이너 부팅 영상"></video></figure>
+            </div>
+          </section>
 
-          <p>저장소 선택을 눌러, SD Card 영역을 선택합니다. </p>
-          <figure class="img-tile">
-            <img
-              src="image/install_2.0.0/revision_4.png"
-            />
-          </figure>
+          <!-- CAUTION -->
+          <section class="step" id="caution" aria-labelledby="caution-title">
+            <div class="caution">
+              <span class="icon">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/><path d="M3 3l18 18"/></svg>
+              </span>
+              <div>
+                <p class="eyebrow" style="color:#ff6961">주의사항</p>
+                <h2 id="caution-title">급속충전기를 사용하지 마세요.</h2>
+                <p>급속충전기는 시드사이너 고장의 원인이 될 수 있습니다. 전원은 <b>일반 5V USB 충전기나 PC의 USB 포트</b>로 연결하세요.</p>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
 
-          <p>SeedSigner 설치 준비가 완료되어 "다음" 버튼이 활성화 됩니다.</p>
-          <p>"다음" 버튼을 누릅니다.</p>
-          <figure class="img-tile">
-            <img
-              src="image/install_2.0.0/revision_5.png"
-            />
-          </figure>
-          <p>WRITE 버튼을 누릅니다.</p>
-          <figure class="img-tile">
-            <img
-              src="image/install_2.0.0/revision_6.png"
-            />
-          </figure>
-          <p>데이터 지워짐 -> "예, 이해했습니다"를 클릭합니다.</p>
-          
-          <figure class="img-tile">
-            <img
-              src="image/install_2.0.0/revision_7.png"
-            />
-          </figure>
-          <p>SeedSigner OS가 SDCard에 설치가 완료되었습니다.</p>
-          <p>USB를 PC와 분리하여, SD Card를 꺼냅니다.</p>
-          
-        </section>
-
-        <section id="flash-windows" class="section panel">
-          <h2>5. SeedSigner 동작확인</h2>
-          <p>SeedSigner에 SDCard를 삽입한 뒤, 전원을 연결하여 부팅을 확인합니다.</p>
-          <figure class="img-tile">
-            <img
-              src="image/10.jpg"
-            />
-          </figure>
-          <figure class="video-tile">
-            <video src="video/1.mp4" autoplay muted loop playsinline controls></video>
-          </figure>
-
-        </section>
-
-        <section id="flash-windows" class="section panel">
-          <h1>주의사항</h1>
-          <h2>※ 급속충전기를 사용하지 마십시오. 고장의 원인이 될 수 있습니다.</h2>
-          
-        </section>
     <footer class="site-footer">
-      <small>© 2025 JikKey SeedSigner Flash Guide</small>
+      <div class="content-width footer-inner">
+        <div>
+          <a class="wordmark" href="https://jikkey.com" target="_blank" rel="noopener"><img src="image/brand-mark.png" alt="" /><span>JikKey</span></a>
+          <p>내 키는 내가 지킨다.</p>
+        </div>
+        <div>
+          <div class="footer-links">
+            <a href="index.html">설치 가이드</a>
+            <a href="verify.html">무결성 검증</a>
+            <a href="https://jikkey.com" target="_blank" rel="noopener">jikkey.com</a>
+          </div>
+          <p>© 2026 JikKey SeedSigner Flash Guide</p>
+        </div>
+      </div>
     </footer>
 
+    <dialog class="lightbox" aria-label="이미지 크게 보기"><img alt="" /></dialog>
     <script src="assets/js/main.js"></script>
   </body>
 </html>

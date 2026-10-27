@@ -3,179 +3,247 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>SeedSigner 이미지 무결성 검증 가이드</title>
+    <title>SeedSigner 이미지 무결성 검증 · JikKey</title>
+    <meta name="description" content="다운로드한 SeedSigner OS 이미지가 변조되지 않았는지 GPG 서명과 SHA256 해시로 확인하는 방법 (Windows 기준)." />
+    <meta property="og:title" content="SeedSigner 이미지 무결성 검증 · JikKey" />
+    <meta property="og:description" content="GPG 서명과 SHA256 해시로 SeedSigner OS 이미지를 검증하세요." />
+    <meta name="theme-color" content="#f5f5f7" />
+    <link rel="icon" href="image/brand-mark.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" />
     <link rel="stylesheet" href="assets/css/styles.css" />
   </head>
 
   <body>
-    <header class="site-header hero">
-      <div class="hero-inner">
-        <img src="image/logo.png" alt="Jikkey 로고" class="logo" />
-        <h1>SeedSigner 이미지 무결성 검증</h1>
-        <p class="tagline">체크섬으로 다운로드한 이미지를 검증하세요</p>
+    <a class="skip-link" href="#content">본문 바로가기</a>
+
+    <header class="global-header">
+      <div class="nav-inner">
+        <a class="wordmark" href="index.html" aria-label="JikKey 설치 가이드 홈"><img src="image/brand-mark.png" alt="" /><span>JikKey</span></a>
+        <nav class="global-nav" aria-label="가이드">
+          <a href="index.html">설치 가이드</a>
+          <a href="verify.html" aria-current="page">무결성 검증</a>
+          <a class="hide-sm" href="https://jikkey.com" target="_blank" rel="noopener">jikkey.com
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+          </a>
+        </nav>
       </div>
     </header>
 
+    <section class="hero">
+      <p class="eyebrow accent">이미지 무결성 검증 · 선택</p>
+      <h1>받은 파일이 진짜인지,<br />직접 확인하세요.</h1>
+      <p class="tagline">서명 한 번, 해시 한 번. <span>신뢰 대신 검증.</span></p>
+      <div class="hero-meta">
+        <span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          약 10분
+        </span>
+        <span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>
+          Windows 기준
+        </span>
+        <span>
+          <a class="inline-link" href="https://github.com/SeedSigner/seedsigner#verifying-your-download" target="_blank" rel="noopener">macOS · Linux 공식 가이드
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+        </span>
+      </div>
+      <label class="version-pick">
+        검증할 버전
+        <input id="version" type="text" inputmode="decimal" value="0.8.7" spellcheck="false" autocomplete="off" aria-describedby="version-help" />
+      </label>
+      <p id="version-help" class="eyebrow" style="margin-top:10px;font-weight:450;font-size:13px">입력한 버전으로 아래 파일 이름과 명령어가 바뀝니다. 스크린샷은 0.8.6 기준입니다.</p>
+    </section>
 
-      <main class="content container" id="content">
-        <section id="intro" class="section panel">
-          <h2>무결성 검증이란?</h2>
-          <p>
-            다운로드한 SeedSigner OS 이미지 파일이 변조되지 않았는지 확인하는 과정입니다.
-            체크섬(Checksum)을 비교하여 파일이 변조되지 않았음을 보장합니다.
-          </p>
-          <p>
-             
-            본 가이드는 윈도우 기반으로 설명을 진행합니다. <br>
-            MAC OS 및 리눅스는 아래의 링크에서 무결성 검증방법을 확인하실 수 있습니다<br>
-            <a href="https://github.com/seedsigner#verifying-your-download">👉 MAC & Linux 검증가이드</a>
-          </p>
-          <br>
-          <div>
-            <h3>왜 검증이 필요한가요?</h3>
-            <ul>
-              <li>다운로드 중 파일 손상 여부를 확인할 수 있습니다.</li>
-              <li>파일의 악의적인 변조가 있는지 확인할 수 있습니다.</li>
-            </ul>
-          </div>
-        </section>
+    <main id="content">
+      <section class="kit content-width" aria-labelledby="why-title">
+        <p class="eyebrow">왜 검증하나요?</p>
+        <h2 id="why-title">두 가지를 확인합니다.</h2>
+        <ul class="kit-grid two">
+          <li><span class="kit-index">서명</span><b>SeedSigner 팀이 만든 파일인가</b><small>GPG 서명으로 해시 목록 파일의 작성자를 확인합니다.</small></li>
+          <li><span class="kit-index">해시</span><b>받는 동안 바뀌지 않았는가</b><small>이미지의 SHA256 해시가 목록과 한 글자도 다르지 않은지 봅니다.</small></li>
+        </ul>
+      </section>
 
-        <section id="file-download" class="section panel">
-          <h2>1. 파일 다운로드</h2>
-          <p>SeedSigner GitHub 페이지에서 검증에 필요한 자료들을 다운로드합니다.</p>
+      <div class="guide content-width">
+        <nav class="step-rail" aria-label="검증 단계">
+          <p>검증 단계</p>
           <ol>
-            <li>
-              SeedSigner GitHub 페이지 👉
-              <a
-                href="https://github.com/SeedSigner/seedsigner?tab=readme-ov-file#downloading-the-software"
-                target="_blank"
-                rel="noopener"
-                >SeedSigner GitHub</a
-              >
-            </li>
-            <figure class="img-tile">
-              <img
-              src="image/verify/1_download.png"
-              alt="무결성 확인 파일 다운로드"
-              />
-            </figure>
-            <li>다운받은 파일을 동일한 경로에 저장합니다</li>
-            <figure class="img-tile">
-              <img
-              src="image/verify/2_path.png"
-              alt="무결성 확인 파일 다운로드"
-              />
-            </figure>
+            <li><a href="#step-1" data-target="step-1"><span>01</span>파일 세 개 받기</a></li>
+            <li><a href="#step-2" data-target="step-2"><span>02</span>Gpg4win 설치</a></li>
+            <li><a href="#step-3" data-target="step-3"><span>03</span>서명 검증</a></li>
+            <li><a href="#step-4" data-target="step-4"><span>04</span>해시 비교</a></li>
+            <li><a href="#done" data-target="done"><span>✓</span>완료</a></li>
           </ol>
-        </section>
+        </nav>
 
-        <section id="gpg-intallation" class="section panel">
-          <h2>2. GPG 프로그램 설치</h2>
-          <p>GPG 프로그램은 GNU Privacy Guard의 약자로, PGP(Pretty Good Privacy)를 기반으로 만들어진 무료 오픈소스 보안 도구입니다. 이 프로그램을 사용하여 파일의 암호화/복호화, 디지털 서명을 통한 메시지 인증 및 무결성 보장을 확인할 수 있습니다</p>
-
-          <h3>GPG 설치페이지 👉 <a
-            href="https://gnupg.org/download/index.html"
-            target="_blank"
-            rel="noopener">GnuPG</a></h3>
-            <ol>
-              <li>진입후 아래로 스크롤 하여 GNUPG BINARY RELEASE를 찾아, Gpg4win을 클릭합니다.</li>
-              <figure class="img-tile">
-                <img
-                src="image/verify/3_gpg1.png"
-                alt="GPG 설치 페이지"
-                />
-                </figure>
-                <li>다운로드 버튼을 누릅니다.</li>
-              <figure class="img-tile">
-                <img
-                src="image/verify/3_gpg2.png"
-                alt="GPG 설치 페이지"
-                />
-                </figure>
-                <li>다운로드를 진행합니다.</li>
-              <figure class="img-tile">
-                <img
-                src="image/verify/3_gpg3.png"
-                alt="GPG 설치 페이지"
-                />
-              </figure>
+        <div class="steps">
+          <!-- STEP 1 -->
+          <section class="step" id="step-1" aria-labelledby="step-1-title">
+            <div class="step-head">
+              <p class="eyebrow">STEP 01</p>
+              <h2 id="step-1-title">파일 세 개를 한 폴더에 받습니다.</h2>
+              <p class="lead">이미지 파일과 함께, 해시 목록과 그 서명 파일이 필요합니다.</p>
+            </div>
+            <ol class="substeps">
+              <li>
+                <h3>SeedSigner GitHub에서 받습니다.</h3>
+                <p class="desc"><a class="inline-link" href="https://github.com/SeedSigner/seedsigner#downloading-the-software" target="_blank" rel="noopener">SeedSigner GitHub · Downloading the Software
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a> 표에서 Pi Zero 1.3 이미지를, 표 아래 <b>Also download these 2 signature verification files</b>에서 두 파일을 받습니다.</p>
+                <figure class="shot"><img src="image/verify/1_download.png" alt="다운로드 표와 서명 검증 파일 두 개의 위치" loading="lazy" /></figure>
+                <dl class="check-card">
+                  <div><dt>OS 이미지</dt><dd><code class="file" data-version-text="seedsigner_os.{v}.pi0.img">seedsigner_os.0.8.7.pi0.img</code></dd></div>
+                  <div><dt>해시 목록</dt><dd><code class="file" data-version-text="seedsigner.{v}.sha256.txt">seedsigner.0.8.7.sha256.txt</code></dd></div>
+                  <div><dt>서명</dt><dd><code class="file" data-version-text="seedsigner.{v}.sha256.txt.sig">seedsigner.0.8.7.sha256.txt.sig</code></dd></div>
+                </dl>
+              </li>
+              <li>
+                <h3>세 파일을 같은 폴더에 둡니다.</h3>
+                <p class="desc">예시처럼 <code class="file">다운로드\verify</code> 폴더를 만들어 모아 두면 이후 명령어를 그대로 쓸 수 있습니다.</p>
+                <figure class="shot"><img src="image/verify/2_path.png" alt="verify 폴더에 모은 세 파일" loading="lazy" /></figure>
+              </li>
             </ol>
-        </section>
+          </section>
 
-        <section id="verify-result" class="section panel">
-          <h2>3. 검증 진행</h2>
-          <p>계산된 체크섬과 릴리스 노트의 체크섬을 비교합니다.</p>
-          <ul>
-            <li>powershell 을 실행합니다.</li>
-            <figure class="img-tile">
-              <img
-              src="image/verify/4_powershell.png"
-              alt="powershell 실행"
-              />
-            </figure>
-            <li>cd 명령어를 통해 Seedsigner OS를 다운로드 받아둔 폴더로 진입합니다.</li>
-            <figure class="img-tile">
-              <img
-              src="image/verify/4_verify_1.png"
-              alt="GPG 설치 페이지"
-              />
-            </figure>
-            <li>GPG fetch key 명령어를 통해 Seedsigner 프로젝트의 공개 키를 가져옵니다.</li>
-            <figure class="img-tile">
-              <img
-              src="image/verify/4_verify_2.png"
-              alt="GPG 설치 페이지"
-              />
-            </figure>
-            <div class="code-block">
-              <button class="copy-button" onclick="copyCode(this)">복사</button>
-              <code>gpg --fetch-keys https://keybase.io/seedsigner/pgp_keys.asc</code>
+          <!-- STEP 2 -->
+          <section class="step" id="step-2" aria-labelledby="step-2-title">
+            <div class="step-head">
+              <p class="eyebrow">STEP 02</p>
+              <h2 id="step-2-title">Gpg4win 설치</h2>
+              <p class="lead">GPG(GNU Privacy Guard)는 디지털 서명을 확인하는 무료 오픈소스 도구입니다. Windows용 배포판이 Gpg4win입니다.</p>
             </div>
-            <li>verify 명령을 통해 서명을 확인합니다.</li>
-            <div class="code-block">
-              <button class="copy-button" onclick="copyCode(this)">복사</button>
-              <code>gpg --verify seedsigner.0.8.6.sha256.txt.sig</code>
+            <ol class="substeps">
+              <li>
+                <h3>GnuPG 다운로드 페이지에서 Gpg4win을 찾습니다.</h3>
+                <p class="desc"><a class="inline-link" href="https://gnupg.org/download/index.html" target="_blank" rel="noopener">gnupg.org/download
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a> 를 아래로 스크롤해 <b>GnuPG binary releases</b> 표의 <b>Gpg4win</b>을 누릅니다.</p>
+                <figure class="shot"><img src="image/verify/3_gpg1.png" alt="GnuPG 바이너리 릴리스 표의 Gpg4win 링크" loading="lazy" /></figure>
+              </li>
+              <li>
+                <h3><span class="ui">Download</span>를 누릅니다.</h3>
+                <figure class="shot"><img src="image/verify/3_gpg2.png" alt="Gpg4win 다운로드 버튼" loading="lazy" /></figure>
+              </li>
+              <li>
+                <h3>받은 설치 파일을 실행해 설치합니다.</h3>
+                <p class="desc">기본 옵션 그대로 설치하면 됩니다.</p>
+                <figure class="shot"><img src="image/verify/3_gpg3.png" alt="Gpg4win 다운로드 진행 화면" loading="lazy" /></figure>
+              </li>
+            </ol>
+          </section>
+
+          <!-- STEP 3 -->
+          <section class="step" id="step-3" aria-labelledby="step-3-title">
+            <div class="step-head">
+              <p class="eyebrow">STEP 03</p>
+              <h2 id="step-3-title">서명 검증</h2>
+              <p class="lead">PowerShell에서 SeedSigner의 공개키를 받아, 해시 목록 파일의 서명을 확인합니다.</p>
             </div>
+            <ol class="substeps">
+              <li>
+                <h3>PowerShell을 엽니다.</h3>
+                <p class="desc">시작 메뉴에서 <b>PowerShell</b>을 검색해 실행합니다.</p>
+                <figure class="shot"><img src="image/verify/4_powershell.png" alt="시작 메뉴에서 PowerShell 검색" loading="lazy" /></figure>
+              </li>
+              <li>
+                <h3>파일을 모아 둔 폴더로 이동합니다.</h3>
+                <div class="terminal">
+                  <div class="terminal-bar"><span>PowerShell</span><button type="button" data-copy>복사</button></div>
+                  <pre><span class="prompt">&gt; </span><code>cd $HOME\Downloads\verify</code></pre>
+                </div>
+                <p class="desc" style="margin-top:10px">다른 폴더에 받았다면 그 경로로 바꿔 입력하세요.</p>
+              </li>
+              <li>
+                <h3>SeedSigner 공개키를 가져옵니다.</h3>
+                <div class="terminal">
+                  <div class="terminal-bar"><span>PowerShell</span><button type="button" data-copy>복사</button></div>
+                  <pre><span class="prompt">&gt; </span><code>gpg --fetch-keys https://keybase.io/seedsigner/pgp_keys.asc</code></pre>
+                </div>
+                <figure class="shot"><img src="image/verify/4_verify_2.png" alt="공개키 가져오기 결과" loading="lazy" /></figure>
+              </li>
+              <li>
+                <h3>서명을 확인합니다.</h3>
+                <div class="terminal">
+                  <div class="terminal-bar"><span>PowerShell</span><button type="button" data-copy>복사</button></div>
+                  <pre><span class="prompt">&gt; </span><code data-version-text="gpg --verify seedsigner.{v}.sha256.txt.sig">gpg --verify seedsigner.0.8.7.sha256.txt.sig</code></pre>
+                </div>
+                <figure class="shot"><img src="image/verify/4_verify_3.png" alt="gpg verify 결과의 Good signature와 지문" loading="lazy" /></figure>
+              </li>
+              <li>
+                <h3>결과에서 두 가지를 확인합니다.</h3>
+                <dl class="check-card">
+                  <div><dt>서명 결과</dt><dd><code>Good signature</code> from "seedsigner"</dd></div>
+                  <div><dt>키 지문 끝 16자리</dt><dd><code>C7EF 7090 0726 0119</code> — Keybase와 같아야 합니다</dd></div>
+                </dl>
+                <p class="desc" style="margin-top:12px"><a class="inline-link" href="https://keybase.io/seedsigner" target="_blank" rel="noopener">keybase.io/seedsigner
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a> 에 표시된 키와 터미널의 <b>Primary key fingerprint</b> 끝자리를 직접 비교하세요.</p>
+                <figure class="shot"><img src="image/verify/4_verify_4.png" alt="Keybase의 SeedSigner 키 지문" loading="lazy" /></figure>
+                <div class="note">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
+                  <span><b>WARNING: This key is not certified with a trusted signature!</b> 문구는 정상입니다. 내 PC가 이 키를 따로 '신뢰' 표시하지 않았다는 뜻일 뿐이며, 지문을 Keybase와 비교하는 것으로 확인을 대신합니다. 반면 <b>BAD signature</b>가 나오면 파일을 지우고 다시 받으세요.</span>
+                </div>
+              </li>
+            </ol>
+          </section>
 
-            <figure class="img-tile">
-              <img
-              src="image/verify/4_verify_3.png"
-              alt="GPG 설치 페이지"
-              />
-            </figure>
-
-            <li>Good signature 메시지가 표시여부와, keybase와 서명값이 동일한지 확인합니다.</li>
-            keybase 링크 👉 <a href="https://keybase.io/seedsigner" target="_blank" rel="noopener">https://keybase.io/seedsigner</a>
-            <figure class="img-tile">
-              <img
-              src="image/verify/4_verify_4.png"
-              alt="결과확인"
-              />
-            </figure>
-
-            <li>CertUtil 명령어를 통해 파일의 해시값이 동일한지 확인합니다.</li>
-            <div class="code-block">
-              <button class="copy-button" onclick="copyCode(this)">복사</button>
-              <code>CertUtil -hashfile  .\seedsigner_os.0.8.6.pi0.img SHA256</code>
+          <!-- STEP 4 -->
+          <section class="step" id="step-4" aria-labelledby="step-4-title">
+            <div class="step-head">
+              <p class="eyebrow">STEP 04</p>
+              <h2 id="step-4-title">해시 비교</h2>
+              <p class="lead">서명으로 확인한 해시 목록과, 내가 받은 이미지 파일의 해시가 같은지 봅니다.</p>
             </div>
-            다운받아둔 sha256.txt 파일을 열어 비교합니다.
-            <figure class="img-tile">
-              <img
-              src="image/verify/4_verify_5.png"
-              alt="Cert 결과확인"
-              />
-            </figure>
-          </ul>
-          <br>
+            <ol class="substeps">
+              <li>
+                <h3>이미지 파일의 SHA256 해시를 계산합니다.</h3>
+                <div class="terminal">
+                  <div class="terminal-bar"><span>PowerShell</span><button type="button" data-copy>복사</button></div>
+                  <pre><span class="prompt">&gt; </span><code data-version-text="CertUtil -hashfile .\seedsigner_os.{v}.pi0.img SHA256">CertUtil -hashfile .\seedsigner_os.0.8.7.pi0.img SHA256</code></pre>
+                </div>
+              </li>
+              <li>
+                <h3>해시 목록 파일과 비교합니다.</h3>
+                <p class="desc"><code class="file" data-version-text="seedsigner.{v}.sha256.txt">seedsigner.0.8.7.sha256.txt</code>를 메모장으로 열고, <code class="file">pi0.img</code> 줄의 값이 위에서 계산한 값과 <b>전부</b> 같은지 확인합니다.</p>
+                <figure class="shot"><img src="image/verify/4_verify_5.png" alt="CertUtil 결과와 sha256.txt의 pi0.img 줄 비교" loading="lazy" /></figure>
+              </li>
+            </ol>
+          </section>
 
-          <h2>검증이 완료되었습니다. 이미지 설치를 진행하셔도 됩니다.</h2>
-          <p><a href="index.html">← 설치 가이드로 돌아가기</a></p>
-        </section>
+          <!-- DONE -->
+          <section class="step" id="done" aria-labelledby="done-title">
+            <div class="finish">
+              <span class="badge">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg>
+              </span>
+              <h2 id="done-title">검증이 끝났습니다.</h2>
+              <p>서명과 해시가 모두 맞다면 안심하고 설치를 진행하세요.</p>
+              <div class="hero-actions">
+                <a class="action-button" href="index.html#step-3">설치 가이드로 돌아가기</a>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
 
     <footer class="site-footer">
-      <small>© 2025 JikKey SeedSigner Flash Guide</small>
+      <div class="content-width footer-inner">
+        <div>
+          <a class="wordmark" href="https://jikkey.com" target="_blank" rel="noopener"><img src="image/brand-mark.png" alt="" /><span>JikKey</span></a>
+          <p>내 키는 내가 지킨다.</p>
+        </div>
+        <div>
+          <div class="footer-links">
+            <a href="index.html">설치 가이드</a>
+            <a href="verify.html">무결성 검증</a>
+            <a href="https://jikkey.com" target="_blank" rel="noopener">jikkey.com</a>
+          </div>
+          <p>© 2026 JikKey SeedSigner Flash Guide</p>
+        </div>
+      </div>
     </footer>
 
+    <dialog class="lightbox" aria-label="이미지 크게 보기"><img alt="" /></dialog>
     <script src="assets/js/main.js"></script>
   </body>
 </html>
