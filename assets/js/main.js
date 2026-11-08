@@ -1,6 +1,7 @@
 // JikKey SeedSigner Guide — step rail, copy, version, lightbox
 (() => {
   const DEFAULT_VERSION = '0.8.7';
+  const t = (key, fallback) => (window.JKI18N && window.JKI18N.t(key)) || fallback;
   const STORE_KEY = 'jikkey-guide-version';
 
   /* ---------- Version-aware file names & commands ---------- */
@@ -46,19 +47,18 @@
   };
 
   document.querySelectorAll('[data-copy]').forEach((button) => {
-    const label = button.textContent;
     button.addEventListener('click', async () => {
       const host = button.closest('.terminal, .copy-row');
       const code = host && host.querySelector('code');
       if (!code) return;
       try {
         await copyText(code.textContent.trim());
-        button.textContent = '복사됨';
+        button.textContent = t('c.copied', '복사됨');
         button.classList.add('copied');
       } catch {
-        button.textContent = '복사 실패';
+        button.textContent = t('c.copy_fail', '복사 실패');
       }
-      setTimeout(() => { button.textContent = label; button.classList.remove('copied'); }, 1800);
+      setTimeout(() => { button.textContent = t('c.copy', '복사'); button.classList.remove('copied'); }, 1800);
     });
   });
 
@@ -108,12 +108,16 @@
 
   /* ---------- Lightbox ---------- */
   const box = document.querySelector('.lightbox');
+  const zoomables = Array.from(document.querySelectorAll('.shot img, .gallery img'));
+  const labelZoomables = () => {
+    zoomables.forEach((img) => img.setAttribute('aria-label', `${img.alt} — ${t('c.zoom', '크게 보기')}`));
+  };
   if (box && typeof box.showModal === 'function') {
     const big = box.querySelector('img');
-    document.querySelectorAll('.shot img, .gallery img').forEach((img) => {
+    labelZoomables();
+    zoomables.forEach((img) => {
       img.tabIndex = 0;
       img.setAttribute('role', 'button');
-      img.setAttribute('aria-label', `${img.alt} — 크게 보기`);
       const open = () => {
         big.src = img.currentSrc || img.src;
         big.alt = img.alt;
@@ -126,4 +130,10 @@
     });
     box.addEventListener('click', () => box.close());
   }
+
+  /* ---------- Language switch: refresh what main.js wrote ---------- */
+  document.addEventListener('jk:lang', () => {
+    applyVersion(input ? input.value : readVersion());
+    if (box && typeof box.showModal === 'function') labelZoomables();
+  });
 })();
